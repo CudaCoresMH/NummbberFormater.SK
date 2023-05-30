@@ -1,0 +1,13 @@
+function formatNum(n: number) :: string:
+    set {_l::*} to split "k,M,B,T,Qn,Qi,Sx" at ","
+    set {_i} to min(floor(log({_n})/3), size of {_l::*})
+    return "%{_n}%" if {_i} <= 0
+    set {_i2} to 1000^{_i}
+    return "%{_n}/{_i2}%%{_l::%{_i}%}%"
+#Example using vault eco
+
+#Makes numbers format instead of 1000 to 1k
+
+command /balance:
+  trigger:
+    send "Money: &a$%formatNum(player's balance)%"
